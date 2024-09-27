@@ -29,7 +29,7 @@ export function sidebar() {
     </div>
 
     <div class="sidebar-list">
-      <p class="title">Language</p>
+      <p class="title">Idioma</p>
 
       <a
         href="./movie-list.html"
@@ -43,22 +43,22 @@ export function sidebar() {
         menu-close
         class="sidebar-link"
         onClick='getMovieList("with_original_language=hi", "Hindi")'
-        >Hindi</a
+        ></a
       >
       <a
         href="./movie-list.html"
         menu-close
         class="sidebar-link"
         onClick='getMovieList("with_original_language=bn", "Bengali")'
-        >Bengali</a
+        ></a
       >
     </div>
 
     <div class="sidebar-footer">
       <p class="copyright">
-        Copyright 2023
-        <a href="https://github.com/rajeevkrS" class="link"
-          >Rajeev Kumar Sudhansu</a
+        Copyright 2024
+        <a href="dualitydomain.github.io/Dualitydomain/" class="link"
+          >Powered By Duality Domain</a
         >
       </p>
 
