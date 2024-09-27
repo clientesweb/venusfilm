@@ -25,18 +25,18 @@ export function sidebar() {
 
   sidebarInner.innerHTML = `
     <div class="sidebar-list">
-      <p class="title">Genre</p>
+      <p class="title">Géneros</p>
     </div>
 
     <div class="sidebar-list">
-      <p class="title">Idioma</p>
+      <p class="title"></p>
 
       <a
         href="./movie-list.html"
         menu-close
         class="sidebar-link"
         onClick='getMovieList("with_original_language=en", "English")'
-        >English</a
+        ></a
       >
       <a
         href="./movie-list.html"
@@ -63,7 +63,7 @@ export function sidebar() {
       </p>
 
       <img
-        src="./assets/images/tmdb-logo.svg"
+        src="./assets/images/VF_LOGOHORIZONTAL_WEBB (1).png"
         width="130"
         height="17"
         alt="the movie database logo"
