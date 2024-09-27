@@ -227,3 +227,33 @@ const createMovieList = function ({ results: movieList }, title) {
 };
 
 search();
+"use strict";
+
+// Ejemplo: Lógica de selección de idioma
+
+document.addEventListener("DOMContentLoaded", () => {
+  const languageSelector = document.getElementById("language-selector");
+
+  // Cargar el idioma por defecto (por ejemplo, inglés)
+  const defaultLanguage = localStorage.getItem("language") || "en";
+  loadLanguage(defaultLanguage);
+  languageSelector.value = defaultLanguage;
+
+  // Cambiar idioma al seleccionar uno nuevo
+  languageSelector.addEventListener("change", (e) => {
+    const selectedLanguage = e.target.value;
+    localStorage.setItem("language", selectedLanguage);
+    loadLanguage(selectedLanguage);
+  });
+});
+
+async function loadLanguage(lang) {
+  const response = await fetch(`./assets/lang/${lang}.json`);
+  const translations = await response.json();
+
+  // Actualiza los textos traducidos
+  document.querySelectorAll("[data-key]").forEach((element) => {
+    const key = element.getAttribute("data-key");
+    element.textContent = translations[key];
+  });
+}
