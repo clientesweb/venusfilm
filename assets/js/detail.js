@@ -51,7 +51,7 @@ const filterVideos = function (videoList) {
 };
 
 fetchDataFromServer(
-  `https://api.themoviedb.org/3/movie/${movieId}?api_key=${api_key}&append_to_response=casts,videos,images,releases`,
+  `https://api.themoviedb.org/3/movie/${movieId}?api_key=${api_key}&append_to_response=casts,videos,images,releases&language=es-ES`,
   function (movie) {
     const {
       backdrop_path,
@@ -73,6 +73,8 @@ fetchDataFromServer(
 
     const movieDetail = document.createElement("div");
     movieDetail.classList.add("movie-detail");
+
+    const formattedDate = new Date(release_date).toLocaleDateString("es-ES");
 
     movieDetail.innerHTML = `
       <div
@@ -108,7 +110,7 @@ fetchDataFromServer(
             <div class="separator"></div>
             <div class="meta-item">${runtime}m</div>
             <div class="separator"></div>
-            <div class="meta-item">${release_date.split("-")[0]}</div>
+            <div class="meta-item">${formattedDate}</div>
 
             <div class="meta-item card-badge">${certification}</div>
           </div>
@@ -119,13 +121,13 @@ fetchDataFromServer(
 
           <ul class="detail-list">
             <div class="list-item">
-              <p class="list-name">Starring</p>
+              <p class="list-name">Elenco</p>
 
               <p>${getCasts(cast)}</p>
             </div>
 
             <div class="list-item">
-              <p class="list-name">Directed By</p>
+              <p class="list-name">Dirigido por</p>
 
               <p>${getDirectors(crew)}</p>
             </div>
@@ -133,7 +135,7 @@ fetchDataFromServer(
         </div>
 
         <div class="title-wrapper">
-          <h3 class="title-large">Trailers and Clips</h3>
+          <h3 class="title-large">Tráilers y Clips</h3>
         </div>
 
         <div class="slider-list">
@@ -165,7 +167,7 @@ fetchDataFromServer(
     pageContent.appendChild(movieDetail);
 
     fetchDataFromServer(
-      `https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${api_key}&page=1`,
+      `https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${api_key}&page=1&language=es-ES`,
       addSuggestedMovies
     );
   }
@@ -174,11 +176,11 @@ fetchDataFromServer(
 const addSuggestedMovies = function ({ results: movieList }, title) {
   const movieListElem = document.createElement("section");
   movieListElem.classList.add("movie-list");
-  movieListElem.ariaLabel = "You May Also Like";
+  movieListElem.ariaLabel = "También te puede gustar";
 
   movieListElem.innerHTML = `
       <div class="title-wrapper">
-        <h3 class="title-large">You May Also Like</h3>
+        <h3 class="title-large">También te puede gustar</h3>
       </div>
   
       <div class="slider-list">
@@ -187,7 +189,7 @@ const addSuggestedMovies = function ({ results: movieList }, title) {
     `;
 
   for (const movie of movieList) {
-    const movieCard = createMovieCard(movie); //called from movie_card.js
+    const movieCard = createMovieCard(movie); // called from movie_card.js
 
     movieListElem.querySelector(".slider-inner").appendChild(movieCard);
   }
