@@ -1,6 +1,6 @@
 "use strict";
 
-// import all functions
+// importar todas las funciones
 import { sidebar } from "./sidebar.js";
 import { api_key, imageBaseURL, fetchDataFromServer } from "./api.js";
 import { createMovieCard } from "./movie-card.js";
@@ -11,29 +11,29 @@ const pageContent = document.querySelector("[page-content]");
 sidebar();
 
 /*-------
-Home page sections (Top rated, Upcoming, Trending movies)
+Secciones de la página de inicio (Películas más valoradas, Próximas, Películas en tendencia)
 --------*/
 const homePageSections = [
   {
-    title: "Weekly Trending Movies",
+    title: "Películas en tendencia semanal",
     path: "/trending/movie/week",
   },
   {
-    title: "Top Rated Movies",
+    title: "Películas más valoradas",
     path: "/movie/top_rated",
   },
   {
-    title: "Upcoming Movies",
+    title: "Próximas películas",
     path: "/movie/upcoming",
   },
 ];
 
 /*------
-  Fetch all genres eg: [{ "id": "123", "name": "Action" }]
-  then change genre formate eg: { 123: "Action" }
+  Obtener todos los géneros, por ejemplo: [{ "id": "123", "name": "Acción" }]
+  luego cambiar el formato de género, por ejemplo: { 123: "Acción" }
   -------*/
 const genreList = {
-  // create genre string function from genre_id eg: [23, 43] -> "Action, Romance"
+  // crear función de cadena de géneros desde genre_id, por ejemplo: [23, 43] -> "Acción, Romance"
   toString(genreIdList) {
     let newGenreList = [];
 
@@ -62,7 +62,7 @@ fetchDataFromServer(
 const heroBanner = function ({ results: movieList }) {
   const banner = document.createElement("section");
   banner.classList.add("banner");
-  banner.ariaLabel = "Popular Movies";
+  banner.ariaLabel = "Películas populares";
 
   banner.innerHTML = `
     <div class="banner-slider"></div>
@@ -116,10 +116,10 @@ const heroBanner = function ({ results: movieList }) {
               width="24"
               height="24"
               aria-hidden="true"
-              alt="play-circle"
+              alt="círculo de reproducción"
             />
 
-            <span class="span">Watch Now</span>
+            <span class="span">Ver ahora</span>
           </a>
         </div>
       </div>
@@ -137,7 +137,7 @@ const heroBanner = function ({ results: movieList }) {
       <img
         class="img-cover"
         src="${imageBaseURL}w154${poster_path}"
-        alt="Slide to ${title}"
+        alt="Deslizar a ${title}"
         loading="lazy"
         draggable="false"
       />
@@ -151,7 +151,7 @@ const heroBanner = function ({ results: movieList }) {
   addHeroSlide();
 
   /*------
-  fetch data for home page sections (top rated, upcoming, trending)
+  obtener datos para secciones de la página de inicio (más valoradas, próximas, en tendencia)
   -------*/
   for (const { title, path } of homePageSections) {
     fetchDataFromServer(
@@ -163,7 +163,7 @@ const heroBanner = function ({ results: movieList }) {
 };
 
 /*------
-Hero Slider Functionality
+Funcionalidad del slider de héroe
 -------*/
 const addHeroSlide = function () {
   const sliderItems = document.querySelectorAll("[slider-item]");
@@ -196,7 +196,7 @@ const addHeroSlide = function () {
     sliderControls[nextIndex].click();
   };
 
-  // Automatic sliding every 5 seconds
+  // Deslizamiento automático cada 5 segundos
   setInterval(slideToNext, 5000);
 
   addEventOnElements(sliderControls, "click", sliderStart);
@@ -218,7 +218,7 @@ const createMovieList = function ({ results: movieList }, title) {
   `;
 
   for (const movie of movieList) {
-    const movieCard = createMovieCard(movie); //called from movie_card.js
+    const movieCard = createMovieCard(movie); // llamado desde movie_card.js
 
     movieListElem.querySelector(".slider-inner").appendChild(movieCard);
   }
@@ -227,33 +227,3 @@ const createMovieList = function ({ results: movieList }, title) {
 };
 
 search();
-"use strict";
-
-// Ejemplo: Lógica de selección de idioma
-
-document.addEventListener("DOMContentLoaded", () => {
-  const languageSelector = document.getElementById("language-selector");
-
-  // Cargar el idioma por defecto (por ejemplo, inglés)
-  const defaultLanguage = localStorage.getItem("language") || "en";
-  loadLanguage(defaultLanguage);
-  languageSelector.value = defaultLanguage;
-
-  // Cambiar idioma al seleccionar uno nuevo
-  languageSelector.addEventListener("change", (e) => {
-    const selectedLanguage = e.target.value;
-    localStorage.setItem("language", selectedLanguage);
-    loadLanguage(selectedLanguage);
-  });
-});
-
-async function loadLanguage(lang) {
-  const response = await fetch(`./assets/lang/${lang}.json`);
-  const translations = await response.json();
-
-  // Actualiza los textos traducidos
-  document.querySelectorAll("[data-key]").forEach((element) => {
-    const key = element.getAttribute("data-key");
-    element.textContent = translations[key];
-  });
-}
