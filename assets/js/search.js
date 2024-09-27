@@ -26,29 +26,31 @@ export function search() {
     clearTimeout(searchTimeout);
 
     searchTimeout = setTimeout(function () {
-  fetchDataFromServer(
-    `https://api.themoviedb.org/3/search/movie?api_key=${api_key}&language=es-ES&page=1&include_adult=false&query=${searchField.value}`,
-    function ({ results: movieList }) {
-      searchWrapper.classList.remove("searching");
-      searchResultModal.classList.add("active");
-      searchResultModal.innerHTML = ""; //remove old results
+      fetchDataFromServer(
+        `https://api.themoviedb.org/3/search/movie?api_key=${api_key}&page=1&include_adult=false&query=${searchField.value}`,
+        function ({ results: movieList }) {
+          searchWrapper.classList.remove("searching");
+          searchResultModal.classList.add("active");
+          searchResultModal.innerHTML = ""; //remove old results
 
-      searchResultModal.innerHTML = `
-        <p class="label">Resultados para</p>
-        <h1 class="heading">${searchField.value}</h1>
+          searchResultModal.innerHTML = `
+            <p class="label">Result for</p>
+            <h1 class="heading">${searchField.value}</h1>
 
-        <div class="movie-list">
-          <div class="grid-list"></div>
-        </div>
-      `;
+            <div class="movie-list">
+              <div class="grid-list"></div>
+            </div>
+          `;
 
-      for (const movie of movieList) {
-        const movieCard = createMovieCard(movie);
+          for (const movie of movieList) {
+            const movieCard = createMovieCard(movie);
 
-        searchResultModal
-          .querySelector(".grid-list")
-          .appendChild(movieCard);
-      }
-    }
-  );
-}, 500);
+            searchResultModal
+              .querySelector(".grid-list")
+              .appendChild(movieCard);
+          }
+        }
+      );
+    }, 500);
+  });
+}
