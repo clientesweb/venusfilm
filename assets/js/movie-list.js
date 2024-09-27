@@ -15,8 +15,9 @@ sidebar();
 let currentPage = 1;
 let totalPages = 0;
 
+// Añade el parámetro language=es-ES a la solicitud
 fetchDataFromServer(
-  `https://api.themoviedb.org/3/discover/movie?include_adult=false&api_key=${api_key}&sort_by=popularity.desc&page=${currentPage}&${urlParam}`,
+  `https://api.themoviedb.org/3/discover/movie?include_adult=false&api_key=${api_key}&sort_by=popularity.desc&page=${currentPage}&${urlParam}&language=es-ES`,
   function ({ results: movieList, total_pages }) {
     totalPages = total_pages;
 
@@ -61,8 +62,9 @@ fetchDataFromServer(
         currentPage++;
         this.classList.add("loading"); //this == loading-btn
 
+        // Añade el parámetro language=es-ES a la solicitud
         fetchDataFromServer(
-          `https://api.themoviedb.org/3/discover/movie?include_adult=false&api_key=${api_key}&sort_by=popularity.desc&page=${currentPage}&${urlParam}`,
+          `https://api.themoviedb.org/3/discover/movie?include_adult=false&api_key=${api_key}&sort_by=popularity.desc&page=${currentPage}&${urlParam}&language=es-ES`,
           ({ results: movieList }) => {
             this.classList.remove("loading"); //this == loading-btn
 
