@@ -57,7 +57,7 @@ export function sidebar() {
     <div class="sidebar-footer">
       <p class="copyright">
         Copyright 2024
-        <a href="dualitydomain.github.io/Dualitydomain/" class="link"
+        <a href="https://dualitydomain.github.io/Dualitydomain/" class="link"
           >Powered By Duality Domain</a
         >
       </p>
