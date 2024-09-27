@@ -68,16 +68,7 @@ export function sidebar() {
         height="17"
         alt="the movie database logo"
       />
-    </div>
-  `</p>
-
-      <img
-        src="./assets/images/VF_LOGOHORIZONTAL_WEBB (1).png"
-        width="130"
-        height="17"
-        alt="the movie database logo"
-      />
-    </div>
+    </div>
   `;
 
   const genreLink = function () {
